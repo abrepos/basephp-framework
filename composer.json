@@ -1,0 +1,40 @@
+{
+    "name": "abrepos/basephp-framework",
+    "type": "project",
+    "minimum-stability": "dev",
+    "description": "BasePHP Framework is object-oriented PHP framework for single or mutli-domain website and RESTful API.",
+    "keywords": [
+        "PHP",
+        "framework",
+        "base",
+        "object-oriented",
+        "REST",
+        "RESTful",
+        "website",
+        "domain",
+        "multi-domain"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ariel Bogdziewicz",
+            "role": "Owner"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@github.com:abrepos/basephp-core.git"
+        }
+    ],
+    "require": {
+        "abrepos/basephp-core": "dev-develop",
+        "php": ">=7.2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Project\\": "sources/",
+            "ProjectTests\\": "tests/"
+        }
+    }
+}

@@ -1,0 +1,73 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "f48fecf46e17f8fce8ccdd574c65bbf7",
+    "packages": [
+        {
+            "name": "abrepos/basephp-core",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/abrepos/basephp-core.git",
+                "reference": "d45768673a58cd7b83f85bf82b04891d5150917c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/abrepos/basephp-core/zipball/d45768673a58cd7b83f85bf82b04891d5150917c",
+                "reference": "d45768673a58cd7b83f85bf82b04891d5150917c",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.2.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Base\\": "sources/",
+                    "Tests\\": "tests/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Ariel Bogdziewicz",
+                    "role": "Owner"
+                }
+            ],
+            "description": "BasePHP Core delivers core functionality and base classes for BasePHP Framework.",
+            "keywords": [
+                "PHP",
+                "REST",
+                "RESTful",
+                "base",
+                "domain",
+                "framework",
+                "multi-domain",
+                "object-oriented",
+                "website"
+            ],
+            "support": {
+                "source": "https://github.com/abrepos/basephp-core/tree/develop",
+                "issues": "https://github.com/abrepos/basephp-core/issues"
+            },
+            "time": "2018-07-23T22:41:56+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "dev",
+    "stability-flags": {
+        "abrepos/basephp-core": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": {
+        "php": ">=7.2.0"
+    },
+    "platform-dev": []
+}
