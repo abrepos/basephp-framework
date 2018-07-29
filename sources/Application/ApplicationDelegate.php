@@ -1,6 +1,7 @@
 <?php
 namespace Project\Application;
 
+use Base\Core\Ports;
 use Base\Core\Router;
 use Base\Core\Request;
 use Base\Exceptions\Exception;
@@ -10,11 +11,38 @@ use Base\Responses\Raw;
 class ApplicationDelegate implements \Base\Core\ApplicationDelegate
 {
     /**
+     * ApplicationDelegate constructor.
+     * Constructor creates all resources owned by application delegate
+     * like database connection.
+     */
+    public function __construct()
+    {
+    }
+
+    /**
+     * Activates all common resources owned by application delegate
+     * for example may open database connection which will be common for all controllers.
+     */
+    public function open(): void
+    {
+        // TODO: Implement open() method.
+    }
+
+    /**
+     * Returns configuration of ports for normal and secure connections.
+     * @return Ports
+     */
+    function ports(): Ports
+    {
+        return new Ports(80, 443);
+    }
+
+    /**
      * Registers all routes for project.
      * @param Router $router
      *      Router object which has to be used to register routes.
      */
-    function registerRoutes(Router $router): void
+    public function registerRoutes(Router $router): void
     {
         $router->get("/", "\\Project\\MainPage\\MainPage::main");
         $router->get("/second", "\\Project\\MainPage\\MainPage::second");
@@ -24,13 +52,12 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     /**
      * Returns current request path. It depends on custom
      * project settings or custom rewrite rules for incoming URL.
-     * This path will be processed by router.
      * @param Request $request
      *      Request object which can be used to get current request path.
      * @return string
      *      Current request path.
      */
-    function currentRequestPath(Request $request): string
+    public function currentRequestPath(Request $request): string
     {
         return $request->path();
     }
@@ -44,7 +71,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      * @param Exception $exception
      * @return Response
      */
-    function responseForException(Request $request, Exception $exception): Response
+    public function responseForException(Request $request, Exception $exception): Response
     {
         return new Raw($exception, "text/plain", $exception->httpCode());
     }
@@ -55,8 +82,17 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      * @param \Throwable $throwable
      * @return Response
      */
-    function responseForThrowable(Request $request, \Throwable $throwable): Response
+    public function responseForThrowable(Request $request, \Throwable $throwable): Response
     {
         return new Raw($throwable, "text/plain", 500);
+    }
+
+    /**
+     * Closes all common resources owned by application delegate
+     * like database connection.
+     */
+    public function close(): void
+    {
+        // TODO: Implement close() method.
     }
 }
