@@ -24,7 +24,7 @@ class MainPage extends Controller
      */
     public function main()
     {
-        return new Raw("MAIN");
+        return $this->raw("MAIN");
     }
 
     /**
@@ -33,15 +33,15 @@ class MainPage extends Controller
      */
     public function second()
     {
-        return new Raw("SECOND");
+        return $this->raw("SECOND");
     }
 
     /**
      * Test of redirect.
      * @return Redirect
      */
-    public function redirect()
+    public function redirectToSecond()
     {
-        return new Redirect("/second");
+        return $this->redirect("/second");
     }
 }
