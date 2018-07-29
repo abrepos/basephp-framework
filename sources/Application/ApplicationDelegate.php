@@ -8,7 +8,6 @@
  */
 namespace Project\Application;
 
-use Base\Core\Ports;
 use Base\Core\Router;
 use Base\Core\Request;
 use Base\Exceptions\Exception;
@@ -40,15 +39,6 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     }
 
     /**
-     * Returns configuration of ports for normal and secure connections.
-     * @return Ports
-     */
-    function ports(): Ports
-    {
-        return new Ports(80, 443);
-    }
-
-    /**
      * Registers all routes for project.
      * @param Router $router
      *      Router object which has to be used to register routes.
@@ -71,6 +61,23 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     public function currentRequestPath(Request $request): string
     {
         return $request->path();
+    }
+
+    /**
+     * Returns domain for current session.
+     *
+     * If wildcard domain is returned with dot at the beginning like ".example.com"
+     * then session will be available in all subdomains.
+     *
+     * If specific domain is returned without dot at the beginning like "example.com",
+     * "subdomain.example.com" or null then session will be available only for current hostname.
+     *
+     * @param Request $request
+     * @return string
+     */
+    function sessionDomain(Request $request): string
+    {
+        return null;
     }
 
     /**
