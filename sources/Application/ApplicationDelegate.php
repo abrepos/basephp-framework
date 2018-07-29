@@ -1,4 +1,11 @@
 <?php
+/**
+ * @project BasePHP Framework
+ * @file ApplicationDelegate.php created by Ariel Bogdziewicz on 29/07/2018
+ * @author Ariel Bogdziewicz
+ * @copyright Copyright © 2018 Ariel Bogdziewicz. All rights reserved.
+ * @license MIT
+ */
 namespace Project\Application;
 
 use Base\Core\Ports;
@@ -8,6 +15,10 @@ use Base\Exceptions\Exception;
 use Base\Responses\Response;
 use Base\Responses\Raw;
 
+/**
+ * Class ApplicationDelegate.
+ * @package Project\Application
+ */
 class ApplicationDelegate implements \Base\Core\ApplicationDelegate
 {
     /**
