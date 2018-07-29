@@ -4,3 +4,6 @@
 
 # Ignore Composer's files.
 vendor/
+
+# Ignore PhpStorm files.
+.idea/

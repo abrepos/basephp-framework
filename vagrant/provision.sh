@@ -85,6 +85,10 @@ install_apache_php() {
     a2enmod rewrite
     
     echo "Copying Apache configuration files"
+
+    cp /vagrant/files/etc/apache2/conf-available/charset.conf /etc/apache2/conf-available/charset.conf
+    chmod 644 /etc/apache2/conf-available/charset.conf
+    chown root:root /etc/apache2/conf-available/charset.conf
     
     cp -r /vagrant/files/var/www/html/phpinfo /var/www/html
     chmod 755 /var/www/html/phpinfo
@@ -102,6 +106,34 @@ install_less() {
     npm install -g less less-plugin-clean-css
 }
 
+website_configuration() {
+    echo "Configuring directories for website"
+    gpasswd -a vagrant www-data
+    gpasswd -a www-data vagrant
+    mkdir -p /home/vagrant/logs/basephp-framework
+
+    echo "Changing default site"
+    cp /vagrant/files/etc/apache2/sites-available/000-default.conf /etc/apache2/sites-available/000-default.conf
+    chmod 644 /etc/apache2/sites-available/000-default.conf
+    chown root:root /etc/apache2/sites-available/000-default.conf
+    a2ensite 000-default.conf
+
+    echo "Apache configuration for website"
+    cp /vagrant/files/etc/apache2/sites-available/100-basephp-framework.conf /etc/apache2/sites-available/100-basephp-framework.conf
+    chmod 644 /etc/apache2/sites-available/100-basephp-framework.conf
+    chown root:root /etc/apache2/sites-available/100-basephp-framework.conf
+    a2ensite 100-basephp-framework
+
+    echo "Disabling conflicting Apache2 modules"
+    a2disconf javascript-common
+
+    echo "Executing composer"
+    su - vagrant -s /bin/bash -c 'cd /home/vagrant/www/basephp-framework && php composer.phar install'
+
+    echo "Restarting Apache"
+    service apache2 reload
+}
+
 echo "Provisioning virtual machine..."
 update_apt_get
 install_emacs
@@ -113,3 +145,4 @@ install_git
 install_mysql
 install_apache_php
 install_less
+website_configuration

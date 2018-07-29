@@ -3,6 +3,9 @@ namespace Project\Application;
 
 use Base\Core\Router;
 use Base\Core\Request;
+use Base\Exceptions\Exception;
+use Base\Responses\Response;
+use Base\Responses\Raw;
 
 class ApplicationDelegate implements \Base\Core\ApplicationDelegate
 {
@@ -13,6 +16,9 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     function registerRoutes(Router $router): void
     {
+        $router->get("/", "\\Project\\MainPage\\MainPage::main");
+        $router->get("/second", "\\Project\\MainPage\\MainPage::second");
+        $router->get("/redirect", "\\Project\\MainPage\\MainPage::redirect");
     }
     
     /**
@@ -26,6 +32,31 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     function currentRequestPath(Request $request): string
     {
-        return "";
+        return $request->path();
+    }
+
+    /**
+     * Returns response to display in case of exception defined by BasePHP which
+     * delivers additional data about error like recommended HTTP code which should
+     * be returned in response. It is good place to return custom 404 page
+     * if exception is related to wrong URL or missing content.
+     * @param Request $request
+     * @param Exception $exception
+     * @return Response
+     */
+    function responseForException(Request $request, Exception $exception): Response
+    {
+        return new Raw($exception, "text/plain", $exception->httpCode());
+    }
+
+    /**
+     * Returns response to display in case of unknown exceptions.
+     * @param Request $request
+     * @param \Throwable $throwable
+     * @return Response
+     */
+    function responseForThrowable(Request $request, \Throwable $throwable): Response
+    {
+        return new Raw($throwable, "text/plain", 500);
     }
 }
