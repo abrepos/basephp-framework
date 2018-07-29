@@ -75,7 +75,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      * @param Request $request
      * @return string
      */
-    function sessionDomain(Request $request): string
+    function sessionDomain(Request $request): ?string
     {
         return null;
     }
