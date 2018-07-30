@@ -10,6 +10,7 @@ namespace Project\MainPage;
 
 use Base\Core\Call;
 use Base\Core\Controller;
+use Base\Responses\PhpInfo;
 use Base\Responses\Raw;
 use Base\Responses\Redirect;
 
@@ -66,5 +67,14 @@ class MainPage extends Controller
     public function two($param1, $param2)
     {
         return $this->raw("TWO({$param1}, {$param2})");
+    }
+
+    /**
+     * Returns PHP info.
+     * @return PhpInfo
+     */
+    public function getPhpInfo()
+    {
+        return $this->phpInfo();
     }
 }
