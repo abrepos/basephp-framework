@@ -8,9 +8,11 @@
  */
 namespace Project\MainPage;
 
+use Base\Core\Call;
 use Base\Core\Controller;
 use Base\Responses\Raw;
 use Base\Responses\Redirect;
+use Base\Responses\Response;
 
 /**
  * Class MainPage is example controller.
@@ -43,5 +45,27 @@ class MainPage extends Controller
     public function redirectToSecond()
     {
         return $this->redirect("/second");
+    }
+
+    /**
+     * Test of parent method.
+     * @param Call $callback
+     * @return Raw
+     */
+    public function one(Call $callback)
+    {
+        $child = $callback->call()->body();
+        return $this->raw("ONE({$child})");
+    }
+
+    /**
+     * Test of child method.
+     * @param $param1
+     * @param $param2
+     * @return Raw
+     */
+    public function two($param1, $param2)
+    {
+        return $this->raw("TWO({$param1}, {$param2})");
     }
 }

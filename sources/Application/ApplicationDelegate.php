@@ -48,6 +48,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
         $router->get("/", "\\Project\\MainPage\\MainPage::main");
         $router->get("/second", "\\Project\\MainPage\\MainPage::second");
         $router->get("/redirect", "\\Project\\MainPage\\MainPage::redirectToSecond");
+        $router->get("/one/{param1}/{param2}", "\\Project\\MainPage\\MainPage::one<two");
     }
     
     /**
