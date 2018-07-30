@@ -12,7 +12,6 @@ use Base\Core\Call;
 use Base\Core\Controller;
 use Base\Responses\Raw;
 use Base\Responses\Redirect;
-use Base\Responses\Response;
 
 /**
  * Class MainPage is example controller.
