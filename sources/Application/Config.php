@@ -28,6 +28,7 @@ class Config implements \Base\Core\Config
     /**
      * Configuration of ports for normal and secure connections.
      * @return Ports
+     * @throws \Base\Exceptions\ArgumentException
      */
     function ports(): Ports
     {
