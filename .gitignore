@@ -1,9 +1,9 @@
 
-# Ignore Vagrant's files.
-.vagrant/
-
-# Ignore Composer's files.
+# Composer files
 vendor/
 
-# Ignore PhpStorm files.
+# PhpStorm files
 .idea/
+
+# MacOS files
+.DS_Store
