@@ -14,6 +14,8 @@ namespace Project\Application;
  */
 class Visitor implements \Base\Core\Visitor
 {
+    const LOGGED_IN = "logged_in";
+
     /**
      * Identifier of visitor. It may be ID of user from database.
      * @var int
@@ -53,6 +55,24 @@ class Visitor implements \Base\Core\Visitor
      */
     function isAuthorized(array $authorizationIds): bool
     {
-        return count($authorizationIds) == 0;
+        foreach ($authorizationIds as $authorizationId)
+        {
+            switch ($authorizationId)
+            {
+                case self::LOGGED_IN:
+                    {
+                        if (!$this->isLoggedIn())
+                        {
+                            return false;
+                        }
+                        break;
+                    }
+                default:
+                    {
+                        return false;
+                    }
+            }
+        }
+        return true;
     }
 }
