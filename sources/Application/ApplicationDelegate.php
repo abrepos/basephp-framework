@@ -10,9 +10,9 @@ namespace Project\Application;
 
 use Base\Core\Router;
 use Base\Core\Request;
+use Base\Core\Response;
+use Base\Data\Raw;
 use Base\Exceptions\Exception;
-use Base\Responses\Response;
-use Base\Responses\Raw;
 
 /**
  * Class ApplicationDelegate.
@@ -93,7 +93,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     public function responseForException(Request $request, Exception $exception): Response
     {
-        return new Raw($exception, "text/plain", $exception->httpCode());
+        return new Response(new Raw($exception, "text/plain"), $exception->httpCode());
     }
 
     /**
@@ -104,7 +104,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     public function responseForThrowable(Request $request, \Throwable $throwable): Response
     {
-        return new Raw($throwable, "text/plain", 500);
+        return new Response(new Raw($throwable, "text/plain"), 500);
     }
 
     /**

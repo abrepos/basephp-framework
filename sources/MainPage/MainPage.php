@@ -10,9 +10,7 @@ namespace Project\MainPage;
 
 use Base\Core\Call;
 use Base\Core\Controller;
-use Base\Responses\PhpInfo;
-use Base\Responses\Raw;
-use Base\Responses\Redirect;
+use Base\Core\Response;
 
 /**
  * Class MainPage is example controller.
@@ -22,27 +20,27 @@ class MainPage extends Controller
 {
     /**
      * Test of empty route.
-     * @return Raw
+     * @return Response
      */
-    public function main()
+    public function main(): Response
     {
         return $this->raw("MAIN");
     }
 
     /**
      * Test of simple route.
-     * @return Raw
+     * @return Response
      */
-    public function second()
+    public function second(): Response
     {
         return $this->raw("SECOND");
     }
 
     /**
      * Test of redirect.
-     * @return Redirect
+     * @return Response
      */
-    public function redirectToSecond()
+    public function redirectToSecond(): Response
     {
         return $this->redirect("/second");
     }
@@ -50,11 +48,11 @@ class MainPage extends Controller
     /**
      * Test of parent method.
      * @param Call $callback
-     * @return Raw
+     * @return Response
      */
-    public function one(Call $callback)
+    public function one(Call $callback): Response
     {
-        $child = $callback->call()->body();
+        $child = $callback->call()->content();
         return $this->raw("ONE({$child})");
     }
 
@@ -62,19 +60,10 @@ class MainPage extends Controller
      * Test of child method.
      * @param $param1
      * @param $param2
-     * @return Raw
+     * @return Response
      */
-    public function two($param1, $param2)
+    public function two($param1, $param2): Response
     {
         return $this->raw("TWO({$param1}, {$param2})");
-    }
-
-    /**
-     * Returns PHP info.
-     * @return PhpInfo
-     */
-    public function getPhpInfo()
-    {
-        return $this->phpInfo();
     }
 }
