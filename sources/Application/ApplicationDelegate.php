@@ -83,6 +83,15 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     }
 
     /**
+     * Creates instance of visitor.
+     * @return \Base\Core\Visitor
+     */
+    function createVisitor(): \Base\Core\Visitor
+    {
+        return new Visitor(0);
+    }
+
+    /**
      * Returns response to display in case of exception defined by BasePHP which
      * delivers additional data about error like recommended HTTP code which should
      * be returned in response. It is good place to return custom 404 page
