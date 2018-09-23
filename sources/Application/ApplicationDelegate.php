@@ -10,6 +10,7 @@ namespace Project\Application;
 
 use Base\Core\Request;
 use Base\Core\Response;
+use Base\Core\Session;
 use Base\Data\Raw;
 use Base\Exceptions\Exception;
 
@@ -84,10 +85,17 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
 
     /**
      * Creates instance of visitor.
+     * @param Request $request
+     * @param Session $session
      * @return \Base\Core\Visitor
      */
-    function createVisitor(): \Base\Core\Visitor
+    function createVisitor(Request $request, Session $session): \Base\Core\Visitor
     {
+        // TODO: Add here dependency on sub-page and hash for remember me.
+        // TODO: 1. Log in using session if available.
+        // TODO: 2. Log in using cookie if available (option "Remember me" for session).
+        // TODO: 3. Log in using token if available.
+        // TODO: 4. Log in using token when expired (option "Remember me" for token).
         return new Visitor(0);
     }
 

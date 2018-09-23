@@ -14,7 +14,7 @@ namespace Project\Application;
  */
 class Visitor implements \Base\Core\Visitor
 {
-    const LOGGED_IN = "logged_in";
+    const VISITOR_LOGGED_IN = "visitor_logged_in";
 
     /**
      * Identifier of visitor. It may be ID of user from database.
@@ -59,7 +59,7 @@ class Visitor implements \Base\Core\Visitor
         {
             switch ($authorizationId)
             {
-                case self::LOGGED_IN:
+                case self::VISITOR_LOGGED_IN:
                     {
                         if (!$this->isLoggedIn())
                         {
