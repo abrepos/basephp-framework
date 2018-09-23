@@ -93,7 +93,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     public function responseForException(Request $request, Exception $exception): Response
     {
-        return new Response(new Raw($exception, "text/plain"), $exception->httpCode());
+        return new Response(new Raw($exception), $exception->httpCode());
     }
 
     /**
@@ -104,7 +104,7 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
      */
     public function responseForThrowable(Request $request, \Throwable $throwable): Response
     {
-        return new Response(new Raw($throwable, "text/plain"), 500);
+        return new Response(new Raw($throwable), 500);
     }
 
     /**
