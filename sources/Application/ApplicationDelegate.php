@@ -8,14 +8,15 @@
  */
 namespace Project\Application;
 
-use Base\Core\Router;
 use Base\Core\Request;
 use Base\Core\Response;
 use Base\Data\Raw;
 use Base\Exceptions\Exception;
 
 /**
- * Class ApplicationDelegate.
+ * Class ApplicationDelegate must not throw exceptions
+ * in its constructor. All initialization which throws exceptions
+ * should be implemented in open() method.
  * @package Project\Application
  */
 class ApplicationDelegate implements \Base\Core\ApplicationDelegate
@@ -23,7 +24,8 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     /**
      * ApplicationDelegate constructor.
      * Constructor creates all resources owned by application delegate
-     * like database connection.
+     * like database connection. It must not throw exceptions. All initialization
+     * which throws exceptions should be implemented in open() method.
      */
     public function __construct()
     {
@@ -32,37 +34,11 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     /**
      * Activates all common resources owned by application delegate
      * for example may open database connection which will be common for all controllers.
+     * @param Request $request
      */
-    public function open(): void
+    public function open(Request $request): void
     {
         // TODO: Implement open() method.
-    }
-
-    /**
-     * Registers all routes for project.
-     * @param Router $router
-     *      Router object which has to be used to register routes.
-     */
-    public function registerRoutes(Router $router): void
-    {
-        $router->get("/", "\\Project\\MainPage\\MainPage::main");
-        $router->get("/second", "\\Project\\MainPage\\MainPage::second");
-        $router->get("/redirect", "\\Project\\MainPage\\MainPage::redirectToSecond");
-        $router->get("/one/{param1}/{param2}", "\\Project\\MainPage\\MainPage::one<two");
-        $router->get("/phpinfo", "\\Project\\MainPage\\MainPage::getPhpInfo");
-    }
-    
-    /**
-     * Returns current request path. It depends on custom
-     * project settings or custom rewrite rules for incoming URL.
-     * @param Request $request
-     *      Request object which can be used to get current request path.
-     * @return string
-     *      Current request path.
-     */
-    public function currentRequestPath(Request $request): string
-    {
-        return $request->path();
     }
 
     /**
@@ -83,26 +59,50 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     }
 
     /**
+     * Creates instance of main router. Router is not added to application
+     * as dependency because it has to be created where exception handling is available.
+     * @return \Base\Core\Router
+     * @throws \Base\Exceptions\ArgumentException
+     */
+    function createRouter(): \Base\Core\Router
+    {
+        return new Router();
+    }
+    
+    /**
+     * Returns current request path. It depends on custom
+     * project settings or custom rewrite rules for incoming URL.
+     * @param Request $request
+     *      Request object which can be used to get current request path.
+     * @return string
+     *      Current request path.
+     */
+    public function currentRequestPath(Request $request): string
+    {
+        return $request->path();
+    }
+
+    /**
      * Returns response to display in case of exception defined by BasePHP which
      * delivers additional data about error like recommended HTTP code which should
      * be returned in response. It is good place to return custom 404 page
      * if exception is related to wrong URL or missing content.
-     * @param Request $request
+     * @param Request|null $request
      * @param Exception $exception
      * @return Response
      */
-    public function responseForException(Request $request, Exception $exception): Response
+    public function responseForException(?Request $request, Exception $exception): Response
     {
         return new Response(new Raw($exception), $exception->httpCode());
     }
 
     /**
      * Returns response to display in case of unknown exceptions.
-     * @param Request $request
+     * @param Request|null $request
      * @param \Throwable $throwable
      * @return Response
      */
-    public function responseForThrowable(Request $request, \Throwable $throwable): Response
+    public function responseForThrowable(?Request $request, \Throwable $throwable): Response
     {
         return new Response(new Raw($throwable), 500);
     }
