@@ -13,6 +13,7 @@ use Base\Core\Response;
 use Base\Core\Session;
 use Base\Data\Raw;
 use Base\Exceptions\Exception;
+use Base\Tools\Resolver;
 
 /**
  * Class ApplicationDelegate must not throw exceptions
@@ -35,9 +36,11 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     /**
      * Activates all common resources owned by application delegate
      * for example may open database connection which will be common for all controllers.
+     * @param \Base\Core\Config $config
      * @param Request $request
+     * @param Resolver $resolver
      */
-    public function open(Request $request): void
+    public function open(\Base\Core\Config $config, Request $request, Resolver $resolver): void
     {
         // TODO: Implement open() method.
     }
