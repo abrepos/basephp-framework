@@ -14,11 +14,9 @@ namespace Project\Application;
  */
 class Visitor implements \Base\Core\Visitor
 {
-    const VISITOR_LOGGED_IN = "visitor_logged_in";
-
     /**
      * Identifier of visitor. It may be ID of user from database.
-     * @var int
+     * @var string|int
      */
     protected $visitorId;
 
@@ -30,10 +28,10 @@ class Visitor implements \Base\Core\Visitor
 
     /**
      * Visitor constructor.
-     * @param int $visitorId
+     * @param string|int $visitorId
      * @param string $token
      */
-    public function __construct(int $visitorId = 0, string $token = "")
+    public function __construct($visitorId = 0, $token = "")
     {
         $this->visitorId = $visitorId;
         $this->token = $token;
@@ -43,36 +41,26 @@ class Visitor implements \Base\Core\Visitor
      * Returns true if visitor is authenticated. In other words we know who is logged in.
      * @return bool
      */
-    function isLoggedIn(): bool
+    public function isLoggedIn(): bool
     {
         return false;
     }
 
     /**
-     * Returns false if visitor is not authorized for at least one authorization identifier.
-     * @param array $authorizationIds
-     * @return bool
+     * Returns visitor identifier.
+     * @return int|string
      */
-    function isAuthorized(array $authorizationIds): bool
+    public function id()
     {
-        foreach ($authorizationIds as $authorizationId)
-        {
-            switch ($authorizationId)
-            {
-                case self::VISITOR_LOGGED_IN:
-                    {
-                        if (!$this->isLoggedIn())
-                        {
-                            return false;
-                        }
-                        break;
-                    }
-                default:
-                    {
-                        return false;
-                    }
-            }
-        }
-        return true;
+        return $this->visitorId;
+    }
+
+    /**
+     * Returns token.
+     * @return string
+     */
+    public function token(): string
+    {
+        return $this->token;
     }
 }

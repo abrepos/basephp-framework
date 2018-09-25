@@ -11,6 +11,7 @@ namespace Project\MainPage;
 use Base\Core\Call;
 use Base\Core\Controller;
 use Base\Core\Response;
+use Project\Application\Authorization;
 
 /**
  * Class MainPage is example controller.
@@ -30,9 +31,11 @@ class MainPage extends Controller
     /**
      * Test of simple route.
      * @return Response
+     * @throws \Base\Exceptions\AuthorizationException
      */
     public function second(): Response
     {
+        $this->authorize(Authorization::VISITOR_LOGGED_IN);
         return $this->raw("SECOND");
     }
 

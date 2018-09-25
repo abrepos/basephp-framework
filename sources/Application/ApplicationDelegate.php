@@ -84,12 +84,25 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
     }
 
     /**
+     * Creates subpage which represents part of website or API indicated by subdomain
+     * or external domain with separated set of authorization settings for visitor.
+     * @param Request $request
+     * @param Session $session
+     * @return Subpage
+     */
+    function createSubpage(Request $request, Session $session): \Base\Core\Subpage
+    {
+        return new Subpage();
+    }
+
+    /**
      * Creates instance of visitor.
      * @param Request $request
      * @param Session $session
-     * @return \Base\Core\Visitor
+     * @param \Base\Core\Subpage $subpage
+     * @return Visitor
      */
-    function createVisitor(Request $request, Session $session): \Base\Core\Visitor
+    function createVisitor(Request $request, Session $session, \Base\Core\Subpage $subpage): \Base\Core\Visitor
     {
         // TODO: Add here dependency on sub-page and hash for remember me.
         // TODO: 1. Log in using session if available.
@@ -97,6 +110,15 @@ class ApplicationDelegate implements \Base\Core\ApplicationDelegate
         // TODO: 3. Log in using token if available.
         // TODO: 4. Log in using token when expired (option "Remember me" for token).
         return new Visitor(0);
+    }
+
+    /**
+     * Creates authorization service. Implementation depends on client.
+     * @return Authorization
+     */
+    function createAuthorizationService(): \Base\Core\Authorization
+    {
+        return new Authorization();
     }
 
     /**
